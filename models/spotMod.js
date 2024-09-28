@@ -1,31 +1,112 @@
-const db = require('../config/db');
+const spotMod = require('../models/spotMod');
 
-// Function to get all songs
-exports.getMusic = (callback) => {
-    const query = 'SELECT * FROM music';  // Make sure the table name matches your database
-    db.query(query, callback);
+// Fetch and display all songs
+exports.getMusic = (req, res) => {
+    spotMod.getMusic((err, results) => {
+        if (err) {
+            console.error('Error fetching songs:', err);
+            return res.status(500).send('Error fetching songs');
+        }
+        res.render('index', { 
+            song: 'Audio Player Example', 
+            tracks: results 
+        });
+    });
 };
 
-// Function to add a new song
-exports.AddMusic = (musicData, callback) => {
-    const query = 'INSERT INTO music SET ?';  // Insert song data into the database
-    db.query(query, musicData, callback);
+// Add a new song
+exports.AddMusic = (req, res) => {
+    // Check if files exist
+    if (!req.files || !req.files['image_cover'] || !req.files['songFile']) {
+        return res.status(400).send('Song file and cover image are required');
+    }
+
+    const musicData = {
+        song: req.body.song,
+        artist: req.body.artist,
+        img_path: req.files['image_cover'][0].path,  // Correctly reference the image cover path
+        file_path: req.files['songFile'][0].path     // Correctly reference the song file path
+    };
+
+    spotMod.AddMusic(musicData, (err, result) => {
+        if (err) {
+            console.error('Error adding song:', err);
+            return res.status(500).send('Error adding song');
+        }
+        res.redirect('/');  // Redirect after successful upload
+    });
 };
 
-// Function to get a song by ID
-exports.getSongById = (musicid, callback) => {
-    const query = 'SELECT * FROM music WHERE id = ?';
-    db.query(query, [musicid], callback);
+// Show the upload form
+exports.showUploadForm = (req, res) => {
+    res.render('upload');
 };
 
-// Function to update a song by ID
-exports.UpdateMusic = (musicid, updatedmusicData, callback) => {
-    const query = 'UPDATE music SET ? WHERE id = ?';
-    db.query(query, [updatedmusicData, musicid], callback);
+// Add a new song
+exports.AddMusic = (req, res) => {
+    // Check for uploaded files
+    if (!req.files || !req.files['image_cover'] || !req.files['songFile']) {
+        return res.status(400).send('Song file and cover image are required');
+    }
+
+    const musicData = {
+        song: req.body.song,
+        artist: req.body.artist,
+        img_path: req.files['image_cover'][0].path,  // Correctly reference the image cover path
+        file_path: req.files['songFile'][0].path     // Correctly reference the song file path
+    };
+
+    spotMod.AddMusic(musicData, (err, result) => {
+        if (err) {
+            console.error('Error adding song:', err);
+            return res.status(500).send('Error adding song');
+        }
+        res.redirect('/');  // Redirect after successful upload
+    });
 };
 
-// Function to delete a song by ID
-exports.DeleteMusic = (musicid, callback) => {
-    const query = 'DELETE FROM music WHERE id = ?';
-    db.query(query, [musicid], callback);
+// Get a song by ID and show in the form
+exports.getSongById = (req, res) => {
+    const musicid = req.params.id;
+
+    spotMod.getSongById(musicid, (err, result) => {
+        if (err) {
+            console.error('Error fetching song by ID:', err);
+            return res.status(500).send('Error fetching song by ID');
+        }
+        res.render('editForm', { song: result[0] });
+    });
+};
+
+// Update song details
+exports.UpdateMusic = (req, res) => {
+    const musicid = req.params.id;
+
+    const updatedmusicData = {
+        song: req.body.song,
+        artist: req.body.artist,
+        img_path: req.body.img_path,  // Use existing image path if not uploading new
+        file_path: req.files && req.files['songFile'] ? req.files['songFile'][0].path : req.body.file_path  // If no new song file, use existing
+    };
+
+    spotMod.UpdateMusic(musicid, updatedmusicData, (err, result) => {
+        if (err) {
+            console.error('Error updating song:', err);
+            return res.status(500).send('Error updating song');
+        }
+        res.redirect('/');  // Redirect after successful update
+    });
+};
+
+// Delete a song by ID
+exports.DeleteMusic = (req, res) => {
+    const musicid = req.params.id;
+
+    spotMod.DeleteMusic(musicid, (err, result) => {
+        if (err) {
+            console.error('Error deleting song:', err);
+            return res.status(500).send('Error deleting song');
+        }
+        res.redirect('/');  // Redirect after successful delete
+    });
 };

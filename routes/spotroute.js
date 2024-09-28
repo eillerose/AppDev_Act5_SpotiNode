@@ -15,14 +15,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Routes
-router.get('/', spotler.getSongs);  // Get all songs
+router.get('/', spotler.getMusic);  // Get all songs
 router.get('/upload', spotler.showUploadForm);  // Show upload form
+router.get('/my-playlist', (req, res) => {
+    res.render('playlist');  // Render the playlist.ejs view
+});
 
-// Update route to handle both the image and song file uploads
+// Update field names to match those used in the controller
 router.post('/upload', upload.fields([{ name: 'image_cover', maxCount: 1 }, { name: 'songFile', maxCount: 1 }]), spotler.AddMusic);
 
 router.get('/edit/:id', spotler.getSongById);  // Get song by ID for editing
-router.post('/edit/:id', upload.single('songFile'), spotler.updateSong);  // Update song
-router.post('/delete/:id', spotler.deleteSong);  // Delete song
+router.post('/edit/:id', upload.fields([{ name: 'image_cover', maxCount: 1 }, { name: 'songFile', maxCount: 1 }]), spotler.UpdateMusic);  // Update song
+router.post('/delete/:id', spotler.DeleteMusic);  // Delete song
 
 module.exports = router;

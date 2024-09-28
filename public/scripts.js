@@ -16,9 +16,9 @@ let isShuffle = false;
 let isRepeat = false;
 
 function loadTrack(index) {
-    const songItem = tracks[index];
-    const songFile = songItem.querySelector('.song-file').src;
-    audioPlayer.src = songFile;
+    const musicItem = tracks[index];
+    const musicFile = musicItem.querySelector('.song-file').src;
+    audioPlayer.src = musicFile;
     audioPlayer.play();
     playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
 }

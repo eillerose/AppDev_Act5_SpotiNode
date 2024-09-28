@@ -1,29 +1,191 @@
-/* Modal styles */
-.modal {
-  display: none;
+body {
+  background-color: #dd7373;
+  color: white;
+}
+
+/* Custom heading styling */
+.custom-heading {
+  font-size: 1.5rem; /* Larger font size */
+  color: #eef6f6; /* Dark text color */
+  margin-top: 35px; /* Remove default margin */
+  margin-bottom: 5px;
+  flex-grow: 1; /* Take up available space to push the button to the right */
+  text-align: left; /* Align text to the left */
+}
+
+/* Button styling */
+#addSongBtn {
+  padding: 10px 20px; /* Adjust padding for better button size */
+  font-size: 1rem; /* Font size for the button text */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Slightly rounded corners */
+  background-color: #813077;
+}
+
+/* Button hover effect */
+#addSongBtn:hover {
+  background-color: #ae5c9f; /* Darker blue on hover */
+}
+
+/* Centered heading styling */
+h5.text-center {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center; /* Center the heading text */
+}
+
+/* Navigation Menu Styling */
+.navbar {
+background-color: #e19d9d;
+padding: 10px 20px;
+}
+
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.navbar-nav .nav-link {
+  color: white;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #813077;
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #222;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.song-cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+
+.song-info {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.song-actions {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: center;
+}
+
+.play-action, .add-action, .like-action {
+  display: inline-block;
+}
+
+.play-action button, .add-action button, .like-action button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.play-action button i,
+.add-action button i,
+.like-action button i {
+  font-size: 24px; /* Adjust icon size */
+  color: #813077; /* Button color */
+}
+
+.play-action button i:hover,
+.add-action button i:hover,
+.like-action button i:hover {
+  color: #dfe4e1; /* Hover color */
+}
+
+.song-actions button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+/* Top music player styling */
+.music-player {
   position: fixed;
-  z-index: 1;
+  top: 630px;  /* Adjusted to position at the top */
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background-color: #e19d9d;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for better visibility */
+}
+
+/* Image inside the music player */
+.music-player img {
+  width: 100px;
+  border-radius: 5px;
+}
+
+/* Progress bar styling */
+.progress-bar {
+  flex-grow: 4;
+  margin: 0 15px;
+}
+
+/* Music controls button styling */
+.music-controls button {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+
+/* Modal Background */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.7); /* Black with opacity */
 }
 
+/* Modal Content */
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
+  background-color: #dd7373;
+  margin: 10% auto; /* Slightly reduced margin for better vertical alignment */
+  padding: 8px; /* Further reduced padding for a tighter layout */
   border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
+  width: 28%; /* Slightly reduced width */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Centered Heading for Add a New Song */
+.centered-heading {
+  text-align: center; /* Centers the text */
+  font-size: 1.5em; /* Adjusts font size to match typical h4 size */
+  margin-bottom: 20px; /* Adds some space below the heading */
+  color: #813077; /* Custom color to match the theme */
+  font-weight: bold;
+}
+
+/* Close Button */
 .close {
-  color: #aaa;
+  color: #272323;
   float: right;
-  font-size: 28px;
+  font-size: 22px; /* Reduced close button font size */
   font-weight: bold;
 }
 
@@ -34,50 +196,98 @@
   cursor: pointer;
 }
 
-button {
-  padding: 10px 15px;
-  margin: 5px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+/* Form Labels and Inputs */
+form {
+  display: flex;
+  flex-direction: column;
 }
 
-button:hover {
-  background-color: #0056b3;
+label {
+  margin-bottom: 1px; /* Further reduced space below label */
+  margin-top: 6px; /* Reduced space above label */
+  font-weight: bold;
+  font-size: 14px; /* Optional: Slightly smaller font size for compactness */
+}
+
+/* Adjusted Input Styles for Smaller Size */
+input[type="text"],
+input[type="file"] {
+  padding: 4px; /* Further reduced padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 6px; /* Further reduced space between form elements */
+  width: calc(100% - 8px); /* Full width minus smaller padding */
+}
+
+/* Button Styles */
+.btn-success {
+  background-color: #ae5c9f ; /* Updated color */
+  color: white;
+  padding: 5px 8px; /* Further reduced button padding */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #eae3e9; /* Darker shade on hover */
+}
+
+
+
+.songs-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Makes each song tile flexible */
+gap: 20px; /* Space between each tile */
 }
 
 .song-item {
-  background-color: #222;
-  color: white;
-  border-radius: 15px;
-  padding: 10px;
-  margin-bottom: 10px;
+background-color: #f8f9fa; /* Light background color */
+border-radius: 10px;
+padding: 15px;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for a card effect */
+transition: transform 0.3s;
 }
 
-.song-item img {
-  border-radius: 10px;
+.song-item:hover {
+transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.song-cover {
+width: 100%;
+height: auto;
+max-height: 240px; /* Limit image height */
+border-radius: 10px;
+object-fit: cover; /* Keeps aspect ratio */
+margin-bottom: 10px;
 }
 
 .song-info {
-  flex-grow: 1;
+margin-bottom: 10px;
+color: #2c2c2c;
 }
 
 .song-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+display: flex;
+gap: 10px;
 }
 
-.song-actions .btn {
-  padding: 5px;
+.song-actions button {
+background: none;
+border: none;
+cursor: pointer;
 }
 
-/* Dark Navbar */
-.navbar-dark {
-  background-color: #111;
+.song-actions i {
+font-size: 24px;
+color: #813077;
 }
 
-.navbar-nav .nav-link {
-  color: white !important;
+.song-actions i:hover {
+color: #dfe4e1; /* Color change on hover */
 }
